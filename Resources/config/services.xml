@@ -2,13 +2,12 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
-        <parameter key="arkulpa_twig_extension.admin.class">Arkulpa\Bundle\TwigExtensionBundle\Admin\ArkulpaTwigExtensionAdmin</parameter>
+        <parameter key="arkulpa.twig.extension.filter.class">Arkulpa\Bundle\TwigExtensionBundle\Twig\Filters</parameter>
     </parameters>
 
     <services>
-        <service id="arkulpa_twig_extension.admin" class="%arkulpa_twig_extension.admin.class%">
-            <argument>%sulu_admin.name%</argument>
-            <tag name="sulu.admin" />
+        <service id="arkulpa_twig_extension_filter" class="%arkulpa.twig.extension.filter.class%">
+            <tag name="twig.extension"/>
         </service>
     </services>
 </container>
