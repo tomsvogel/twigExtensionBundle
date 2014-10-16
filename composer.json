@@ -7,7 +7,7 @@
     "authors": [
         {
             "name": "tomsvogel",
-            "homepage": "HTTP://www.arkulpa.at"
+            "homepage": "http://www.arkulpa.at"
         }
     ],
     "require": {
