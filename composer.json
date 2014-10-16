@@ -1,0 +1,25 @@
+{
+    "name": "arkulpa/twigextension-bundle",
+    "type": "library",
+    "description": "Bundle with some extended Twig Filters",
+    "license": "MIT",
+    "keywords": ["twig", "filters "],
+    "authors": [
+        {
+            "name": "tomsvogel",
+            "homepage": "HTTP://www.arkulpa.at"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "symfony/symfony": "2.5.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Arkulpa\\Bundle\\TwigExtensionBundle": ""
+        }
+    },
+    "target-dir": "Arkulpa/Bundle/TwigExtensionBundle"
+}
