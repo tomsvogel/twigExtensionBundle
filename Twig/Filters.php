@@ -37,12 +37,11 @@ class Filters extends \Twig_Extension
         $dstr = $d->format('Y-m-d');
         foreach ($arr as $a) {
             if ($a[$col] instanceof \DateTime) {
-                if ($a[$col]->format('Y-m-d') > $dstr) {
+                if ($a[$col]->format('Y-m-d') >= $dstr) {
                     $result[] = $a;
                 }
             } else {
-
-                if ($a[$col] > $dstr) {
+                if ($a[$col] >= $dstr) {
                     $result[] = $a;
                 }
             }
