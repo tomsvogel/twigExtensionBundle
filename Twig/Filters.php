@@ -2,8 +2,7 @@
 namespace Arkulpa\Bundle\TwigExtensionBundle\Twig;
 
 
-use Doctrine\Tests\DBAL\Types\DateTest;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\ORM\PersistentCollection;
 
 class Filters extends \Twig_Extension
 {
@@ -15,6 +14,9 @@ class Filters extends \Twig_Extension
             ),
             new \Twig_SimpleFilter(
                 'removePast', array($this, 'removePastFnc')
+            ),
+            new \Twig_SimpleFilter(
+                'objectSort', array($this, 'objectSort')
             ),
         );
     }
@@ -29,6 +31,43 @@ class Filters extends \Twig_Extension
 
         return $arr;
     }
+
+
+    function objectSort($values, $methodNames, $dir = 'asc')
+    {
+        if ($values instanceof PersistentCollection) {
+            $values = $values->toArray();
+        }
+        if (!is_array($methodNames)) {
+            $methodNames = array($methodNames);
+        }
+        usort(
+            $values,
+            function ($a, $b) use ($methodNames) {
+                foreach ($methodNames as $i => $methodName) {
+                    $aOrder = $a->$methodName();
+                    $bOrder = $b->$methodName();
+                    if (is_string($aOrder)) {
+                        $aOrder = strtolower($aOrder);
+                        $bOrder = strtolower($bOrder);
+                    }
+                    if ($aOrder == $bOrder) {
+                        if (count($methodNames) == ($i + 1)) {
+                            return 0;
+                        } else {
+                            continue;
+                        }
+                    }
+                    return ($aOrder < $bOrder) ? -1 : 1;
+                }
+            }
+        );
+        if (strtolower($dir) == 'desc') {
+            $values = array_reverse($values);
+        }
+        return $values;
+    }
+
 
     function removePastFnc($arr, $col)
     {
